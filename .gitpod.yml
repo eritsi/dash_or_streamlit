@@ -1,0 +1,10 @@
+tasks:
+  - name: setup
+    before: |
+      pip install -r requirements.txt
+      jupyter notebook --generate-config
+      echo -e '\nc.NotebookApp.contents_manager_class = "jupytext.TextFileContentsManager"' >> ~/.jupyter/jupyter_notebook_config.py
+      echo -e '\nc.ContentsManager.default_jupytext_formats = "ipynb,py"' >> ~/.jupyter/jupyter_notebook_config.py
+    init: |
+      jupyter notebook --ip=*
+    openMode: split-right

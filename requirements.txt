@@ -1,0 +1,12 @@
+streamlit
+dash
+plotly
+pandas
+numpy
+jupytext
+openpyxl
+optuna
+pandas_gbq
+scikit-learn
+lightgbm
+japanize-matplotlib
