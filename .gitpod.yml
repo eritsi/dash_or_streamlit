@@ -10,6 +10,12 @@ tasks:
       jupyter notebook --ip=*
   - name: new shell
     init: |
+      pip install kaggle
+      read -p "Enter Your Kaggle Account Name: " KAGGLE_ID
+      read -p "Enter Your Kaggle API key: " KAGGLE_KEY
+      export KAGGLE_USERNAME=$KAGGLE_ID
+      export KAGGLE_KEY=$KAGGLE_KEY
+      kaggle d download -d salehahmedrony/gender-statistics -f Gender_StatsData.csv
       echo 'python intro_dash.py'
       echo 'streamlit run intro_streamlit.py'
     openMode: split-right
