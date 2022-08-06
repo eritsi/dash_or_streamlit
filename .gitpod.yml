@@ -5,6 +5,11 @@ tasks:
       jupyter notebook --generate-config
       echo -e '\nc.NotebookApp.contents_manager_class = "jupytext.TextFileContentsManager"' >> ~/.jupyter/jupyter_notebook_config.py
       echo -e '\nc.ContentsManager.default_jupytext_formats = "ipynb,py"' >> ~/.jupyter/jupyter_notebook_config.py
+      echo -e '\nc.NotebookApp.password = ""' >> ~/.jupyter/jupyter_notebook_config.py
     init: |
       jupyter notebook --ip=*
+  - name: new shell
+    init: |
+      echo 'python intro_dash.py'
+      echo 'streamlit run intro_streamlit.py'
     openMode: split-right
