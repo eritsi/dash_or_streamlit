@@ -6,7 +6,6 @@ tasks:
       echo -e '\nc.NotebookApp.contents_manager_class = "jupytext.TextFileContentsManager"' >> ~/.jupyter/jupyter_notebook_config.py
       echo -e '\nc.ContentsManager.default_jupytext_formats = "ipynb,py"' >> ~/.jupyter/jupyter_notebook_config.py
       echo -e '\nc.NotebookApp.password = ""' >> ~/.jupyter/jupyter_notebook_config.py
-    init: |
       jupyter notebook --ip=*
   - name: new shell
     init: |
@@ -15,7 +14,9 @@ tasks:
       read -p "Enter Your Kaggle API key: " KAGGLE_KEY
       export KAGGLE_USERNAME=$KAGGLE_ID
       export KAGGLE_KEY=$KAGGLE_KEY
-      kaggle d download -d salehahmedrony/gender-statistics -f Gender_StatsData.csv
+      kaggle d download -d salehahmedrony/gender-statistics -f Gender_StatsData.csv # --unzip doens't work
+      unzip Gender_StatsData.csv.zip
+      rm Gender_StatsData.csv.zip
       echo 'python intro_dash.py'
       echo 'streamlit run intro_streamlit.py'
     openMode: split-right
