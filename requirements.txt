@@ -10,3 +10,6 @@ pandas_gbq
 scikit-learn
 lightgbm
 japanize-matplotlib
+networkx
+dtreeviz
+dash-cytoscape
