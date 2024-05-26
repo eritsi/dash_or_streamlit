@@ -39,3 +39,23 @@ I will remove all python code for dash, as soon as the conversion to streamlit f
 ## Data Resources 
 Gender_StatsData.csv  https://www.kaggle.com/datasets/salehahmedrony/gender-statistics?resource=download&select=Gender_StatsData.csv
 
+
+# 2023追記
+## dtreeviz
+dash, streamlitそれぞれ適用した. 
+いずれもsvgファイルを生成し、 `img src="data:image/svg+xml` タグにより貼り付ける形態。  
+pngファイルでも同等となる. 
+
+dtreevizのサンプルノートにあった、アニメーションpng生成のコードも参考にし、取り込んだ. 
+
+アニメーションpng生成に当たっては、dtreevizの機能とアニメーション作成のコードが混在しているとわかりづらいので、ptyhonのデコレータ機能を導入してみた. 
+
+## dtreeviz github
+https://github.com/parrt/dtreeviz
+
+## デコレータ
+https://www.youtube.com/watch?v=A4md-u022MY
+![decorator](img/decorator1.png). 
+![decorator2](img/decorator2.png). 
+これを使って以下をstreamlit上に表示した
+![PNGアニメ](img/wine-dtree-maxdepth.png)

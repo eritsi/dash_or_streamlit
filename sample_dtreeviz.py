@@ -66,14 +66,17 @@ v
 v = viz_model.view(scale=1.5,fontname="monospace",x=[1,2,3,4])
 v
 
-v.dot
+viz_model.ctree_leaf_distributions(fontname="monospace")
+
+viz_model.rtree_leaf_distributions(fontname="monospace")
+
+# Xが1または2列（特徴量の数）である必要あり
+tree = DecisionTreeClassifier() #分類問題のモデルを作成
+tree.fit(iris.data[:, 0:2], iris.target)
+dtreeviz.decision_boundaries(tree, X=iris.data[:, 0:2], y=iris.target, fontname="monospace",
+       feature_names=iris.feature_names[0:2])
+
 
 v.svg()
-
-dir(v)
-
-print(v.save_svg.__doc__)
-
-v.dot
 
 

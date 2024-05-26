@@ -13,3 +13,5 @@ japanize-matplotlib
 networkx
 dtreeviz
 dash-cytoscape
+pltvid 
+rfpimp
