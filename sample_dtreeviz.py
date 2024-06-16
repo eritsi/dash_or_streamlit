@@ -199,9 +199,13 @@ def edit_dot_file(input_path, output_path):
 edit_dot_file('/workspace/dash_or_streamlit/test3', '/workspace/dash_or_streamlit/test3-score')
 # -
 
+from dtreeviz.utils import DTreeVizRender
 with open('/workspace/dash_or_streamlit/test3-score', 'r') as file:
         content = file.read()
-DTreeVizRender(content, 1.0)
+vi =DTreeVizRender(content, 1.0)
+vi
+
+vi.save('test3-score.svg')
 
 # # 単純に並べたい場合は簡易な.dotファイルを作成する
 

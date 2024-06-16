@@ -59,3 +59,17 @@ https://www.youtube.com/watch?v=A4md-u022MY
 ![decorator2](img/decorator2.png). 
 これを使って以下をstreamlit上に表示した
 ![PNGアニメ](img/wine-dtree-maxdepth.png)
+
+### アニメーション作成.ipynb, streamlit
+- by dtreeviz : classifier-boundary-animations.ipynb
+- implemented : dtreeviz_streamlit.py
+
+## dtreeviz の改造
+dtreevizを改造して.svgの出力の中に任意のプロットを追加できるようにした
+![svg](img/test3-score.svg)
+
+### svg viewer by streamlit
+- implemented : st_svg_show.py
+
+### .ipynb, streamlit
+- sample_dtreeviz.ipynb
