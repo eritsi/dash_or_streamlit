@@ -73,3 +73,9 @@ dtreevizを改造して.svgの出力の中に任意のプロットを追加で�
 
 ### .ipynb, streamlit
 - sample_dtreeviz.ipynb
+
+dtreevizを改造して.svgの出力の中でエンコードラベルの元の値を表示できるようにした
+![svg](img/titanic3.svg)
+
+### .ipynb, streamlit
+- sample_dtreeviz-titanic.ipynb
