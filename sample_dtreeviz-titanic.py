@@ -388,6 +388,34 @@ def _my_class_leaf_viz(node: ShadowDecTreeNode,
 dtreeviz.trees._class_leaf_viz = _my_class_leaf_viz
 # -
 
+# # iris
+
+# +
+import numpy as np
+import pandas as pd 
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
+
+iris = datasets.load_iris() #Irisデータを読み込む
+data, target = iris.data, iris.target #データとラベルを分ける
+x_train, x_test, y_train, y_test = train_test_split(data, target, test_size=0.3, random_state=0) # 学習データとテストデータへ7:3で分割
+
+print(x_train.dtype, x_test.dtype, y_train.dtype, y_test.dtype) #データ型の確認
+print(x_train.shape, x_test.shape, y_train.shape, y_test.shape) #データ数の確認
+
+# +
+from sklearn.tree import DecisionTreeClassifier
+
+tree = DecisionTreeClassifier() #分類問題のモデルを作成
+tree.fit(x_train, y_train) # 学習
+y_pred = tree.predict(x_test) # テストデータの予測値
+
+print(tree.get_params())
+print(y_pred)
+print('学習時スコア：', tree.score(x_train, y_train), '検証スコア', tree.score(x_test, y_test))
+# -
+
 # 変化は少ない（リーフ番号を表示しただけ）が、　_score.svgが作られている
 viz_model = dtreeviz.model(tree,
                                X_train=iris.data, y_train=iris.target,
@@ -436,79 +464,66 @@ vi
 
 vi.save('test3-score.svg')
 
+# # data frameを抽出
+
+# viz_model.shadow_tree.get_leaf_sample_counts_by_class() #各pieの割合(表現方法違うだけ)
+viz_model.ctree_leaf_distributions(display_type='text')
+
+viz_model.shadow_tree.node_to_samples[10] # nodeに所属するデータのindex
+
+df_train = pd.concat([pd.DataFrame(iris.data, columns=iris.feature_names), pd.DataFrame(iris.target, columns=['variety'])], axis=1)
+df_train.iloc[viz_model.shadow_tree.node_to_samples[10],:]
+
+# 文字で説明させる
+viz_model.explain_prediction_path(x=df_train[83:84].values.tolist()[0])
+
+df_train.iloc[viz_model.shadow_tree.node_to_samples[10],:][df_train.iloc[viz_model.shadow_tree.node_to_samples[10],:]["variety"]==1]
+
 # # 単純に並べたい場合は簡易な.dotファイルを作成する
 
-from dtreeviz.utils import DTreeVizRender
-dot_score = f"""
+# +
+import os
+files = os.listdir("/tmp")
+
+matching_files = []
+for num in viz_model.shadow_tree.get_leaf_sample_counts_by_class()[0]:
+    for filename in files:
+        if filename.startswith(f'leaf{num}_') and filename.endswith('_score.svg'):
+            matching_files.append(filename)
+
+str_id = matching_files[0].split('_')[1]
+
+# +
+dot_score = """
 digraph G {{
     splines=line;
+"""
+
+for num in viz_model.shadow_tree.get_leaf_sample_counts_by_class()[0]:
+    svg_file = f"/tmp/leaf{num}_{str_id}.svg"
+    score_svg_file = f"/tmp/leaf{num}_{str_id}_score.svg"
     
-    leaf1 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
+    dot_score += f"""
+    leaf{num} [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
                 
                 <tr>
-                        <td><img src="/tmp/leaf1_6553.svg"/></td>
+                        <td><img src="{svg_file}"/></td>
                 </tr>
                 <tr>
-                        <td><img src="/tmp/leaf1_6553_score.svg"/></td>
+                        <td><img src="{score_svg_file}"/></td>
                 </tr>
                 </table>>]
-	leaf4 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
-                
-                <tr>
-                        <td><img src="/tmp/leaf4_6553.svg"/></td>
-                </tr>
-                <tr>
-                        <td><img src="/tmp/leaf4_6553_score.svg"/></td>
-                </tr>
-                </table>>]
-	leaf6 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
-                
-                <tr>
-                        <td><img src="/tmp/leaf6_6553.svg"/></td>
-                </tr>
-                <tr>
-                        <td><img src="/tmp/leaf6_6553_score.svg"/></td>
-                </tr>
-                </table>>]
-	leaf7 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
-                
-                <tr>
-                        <td><img src="/tmp/leaf7_6553.svg"/></td>
-                </tr>
-                <tr>
-                        <td><img src="/tmp/leaf7_6553_score.svg"/></td>
-                </tr>
-                </table>>]
-	leaf10 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
-                
-                <tr>
-                        <td><img src="/tmp/leaf10_6553.svg"/></td>
-                </tr>
-                <tr>
-                        <td><img src="/tmp/leaf10_6553_score.svg"/></td>
-                </tr>
-                </table>>]
-	leaf11 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
-                
-                <tr>
-                        <td><img src="/tmp/leaf11_6553.svg"/></td>
-                </tr>
-                <tr>
-                        <td><img src="/tmp/leaf11_6553_score.svg"/></td>
-                </tr>
-                </table>>]
-	leaf12 [margin="0" shape=box penwidth="0" color="#444443" label=<<table border="0" CELLBORDER="0">
-                
-                <tr>
-                        <td><img src="/tmp/leaf12_6553.svg"/></td>
-                </tr>
-                <tr>
-                        <td><img src="/tmp/leaf12_6553_score.svg"/></td>
-                </tr>
-                </table>>]
-}}
     """
+
+dot_score += "\n}}"
+# -
+
+print(dot_score)
+
+from dtreeviz.utils import DTreeVizRender
 DTreeVizRender(dot_score, 1.0)
+
+# # その他
 
 from dtreeviz.trees import _draw_piechart, adjust_colors
 import matplotlib.pyplot as plt
