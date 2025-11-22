@@ -4,7 +4,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # -- Import and clean data (importing csv into pandas)
-@st.cache
 def load_data():
     df = pd.read_csv("https://raw.githubusercontent.com/Coding-with-Adam/Dash-by-Plotly/master/Other/Excel_Dash/vgsales.csv")
 

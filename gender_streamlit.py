@@ -4,9 +4,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # -- Import and clean data (importing csv into pandas)
-@st.cache
 def load_data():
-    df = pd.read_csv("Gender_StatsData.csv")
+    df = pd.read_csv("Gender_StatsData.csv.zip")
     
     df = df[(df["Indicator Name"]=="Expected years of schooling, female")|\
             (df["Indicator Name"]=="Expected years of schooling, male")]
