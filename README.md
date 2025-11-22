@@ -79,3 +79,10 @@ dtreevizを改造して.svgの出力の中でエンコードラベルの元の�
 
 ### .ipynb, streamlit
 - sample_dtreeviz-titanic.ipynb
+
+### stliteを使ったgithub pages
+streamlitは、静的html化すればgithub pagesで公開できる。  
+オンラインのエディタを用いるとコンバートしやすい。https://edit.share.stlite.net/  
+
+試していないが、ファイルアップロードしてからの描画もできるらしい。  
+dtreevizのようなインストールがややこしいものは無理かも。
