@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Stlite app</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@stlite/browser@0.90.0/build/stlite.css"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module">
+import { mount } from "https://cdn.jsdelivr.net/npm/@stlite/browser@0.90.0/build/stlite.js"
+mount(
+  {
+    requirements: ["pandas", "plotly"],
+    entrypoint: "gender_streamlit.py",
+    files: {
+"gender_streamlit.py": {
+              url: "./gender_streamlit.py",
+            },
+"Gender_StatsData.csv.zip": {
+              url: "./Gender_StatsData.csv.zip",
+            },
+
+},
+  },
+  document.getElementById("root")
+)
+
+    </script>
+  </body>
+  <!-- Generated from Stlite Sharing (https://edit.share.stlite.net/), and the source version is 82c6cd17619a17d62998b5bdcab07312478bddf1 -->
+</html>
