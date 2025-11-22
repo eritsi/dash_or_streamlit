@@ -1,0 +1,20 @@
+{
+  "name": "Codespaces Python Env",
+  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+
+  // Codespaces 起動後に毎回実行（環境構築）
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+
+  // VSCode カスタマイズ
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  },
+
+  // 必要ポート
+  "forwardPorts": [8888, 8501]
+}
